@@ -1,0 +1,18 @@
+. {
+	cache 3600 . {
+		denial 512
+		prefetch 1 3600s 75%
+		serve_stale
+		success 4096
+	}
+
+	errors
+	
+	forward . tls://1.1.1.1 tls://1.0.0.1 {
+		expire 5m
+		health_check 5s
+		policy random
+		tls_servername cloudflare-dns.com
+	}
+}
+
